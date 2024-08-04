@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.successful {
+    background-color: #43A047; /* Green for success */
+    color: white;
+}
+
+.fail {
+    background-color: #D32F2F; /* Red for failure */
+    color: white;
+}

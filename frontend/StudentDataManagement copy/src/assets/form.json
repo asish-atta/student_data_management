@@ -1,0 +1,75 @@
+{
+ "fields" : [
+    {
+      "name": "studentName",
+      "label": "Student Name",
+      "type": "text",
+      "required": true,
+      "validationMessage": "This field is required"
+    },
+    {
+      "label": "Father Name",
+      "name": "fatherName",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Student ID",
+      "name": "studentID",
+      "type": "text",
+      "maxlength": "4",
+      "required": true
+    },
+    {
+      "label": "Gender",
+      "name": "studentGender",
+      "type": "radio",
+      "options": [
+        {"label": "Male", "value": "Male"},
+        {"label": "Female", "value": "Female"}
+      ],
+      "required": true
+    },
+    {
+      "label": "Date of Birth",
+      "name": "studentDOB",
+      "type": "date",
+      "required": true
+    },
+    {
+      "label": "Department",
+      "name": "studentDepartment",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Mobile Number",
+      "name": "studentMobileNumber",
+      "type": "text",
+      "maxlength": "10",
+      "required": true
+    },
+    {
+      "label": "Parent Mobile",
+      "name": "studentParentMobileNumber",
+      "type": "text",
+      "maxlength": "10",
+      "required": true,
+      "pattern": "^[+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4,6}$"
+    },
+    {
+      "label": "E-mail Id",
+      "name": "studentEmail",
+      "type": "text",
+      "pattern": "^\\S+@\\S+\\.\\S+$",
+      "format": "email",
+      "required": true
+    },
+    {
+      "label": "Address",
+      "name": "studentAddress",
+      "type": "text",
+      "required": true
+    }
+  ]
+}

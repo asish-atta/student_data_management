@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="card mt-2" style="align-items: center;">
+    <h1>Student Data Management</h1>
+  </div>
+
+
+  <div class="app-mychart" style="width: 50%;"></div>
+  <!-- <div class="app-mychart" style="height:450px; width:300px;"></div> -->
+
+  <div class="card mt-3" style=" text-align: center; width: 100%;">
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+
+
+
+      <!-- <div *ngFor="let field of fields" >
+      <label [for]="field.name">{{ field.label }}</label>
+      <ng-container [ngSwitch]="field.type">
+        <input *ngSwitchCase="'text'" [type]="field.type" [id]="field.name" [name]="field.name" [(ngModel)]="field.value" [attr.required]="field.required ? true : null" [attr.maxlength]="field.maxlength || null"><br>
+        <div *ngSwitchCase="'radio'" >
+          <ng-container *ngFor="let option of field.options">
+            <input type="radio" [id]="option.value" [name]="field.name" [(ngModel)]="field.value" [value]="option.value">
+            <label [for]="option.value">{{ option.label }}</label>
+          </ng-container><br>
+        </div>
+      </ng-container>
+    </div> -->
+
+      <div class="form-grid">
+        <!-- <div class="column"> -->
+        <!-- <div *ngFor="let field of fields.slice(0,5)" class="form-group">
+      <label [for]="field.name">{{ field.label }}</label>
+      <ng-container [ngSwitch]="field.type">
+        <input *ngSwitchCase="'text'" [type]="field.type" [id]="field.name" [name]="field.name"
+               [(ngModel)]="student[field.name]" required #fieldControl ="ngModel">
+                -->
+
+        <!-- <div *ngFor="let field of fields" class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [type]="field.type" [id]="field.name" [name]="field.name"
+               [(ngModel)]="student[field.name]" required #fieldControl="ngModel">
+        <mat-error *ngIf="fieldControl.hasError('required')">
+          {{ field.label }} is required
+        </mat-error>
+      </mat-form-field>
+    </div> -->
+        <div *ngFor="let field of fields" class="form-group">
+          <ng-container *ngIf="field.type === 'radio'; else otherInputs">
+            <div class="radio-group">
+              <label>{{ field.label }}</label>
+              <mat-radio-group [attr.aria-label]="field.label" [(ngModel)]="student[field.name]" name="{{field.name}}">
+                <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.label }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+
+          <ng-template #otherInputs>
+            <div class="input-group">
+              <label>{{ field.label }}</label>
+              <mat-form-field appearance="outline" *ngIf="field.type !== 'radio'">
+                <!-- <mat-label>{{ field.label }}</mat-label> -->
+                <input matInput [type]="field.type" [id]="field.name" [name]="field.name"
+                  [(ngModel)]="student[field.name]" required #fieldControl="ngModel">
+                <mat-error *ngIf="fieldControl.hasError('required')">
+                  {{ field.label }} is required
+                </mat-error>
+                <mat-error *ngIf="fieldControl.hasError('maxlength')">
+                  {{ field.label }} cannot exceed {{ field.maxlength }} characters
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </ng-template>
+        </div>
+        <!--   
+         <input *ngSwitchCase="'date'" [type]="field.type" [id]="field.name" [name]="field.name"
+               [(ngModel)]="student[field.name]" [required]="field.validators?.required"  >
+        <div *ngSwitchCase="'radio'">
+          <ng-container *ngFor="let option of field.options">
+            <input type="radio" [id]="option.value" [name]="field.name"
+                   [(ngModel)]="student[field.name]" [value]="option.value" >
+            <label [for]="option.value">{{ option.label }}</label>
+          </ng-container>
+        </div>     
+      </ng-container>  -->
+        <!-- </div> -->
+        <!-- </div> -->
+        <!-- <div class="column"> -->
+        <!-- <div *ngFor="let field of fields.slice(5,10)" class="form-group">
+      <label [for]="field.name">{{ field.label }}</label>
+      <ng-container [ngSwitch]="field.type">
+        <input *ngSwitchCase="'text'" [type]="field.type" [id]="field.name" [name]="field.name"
+               [(ngModel)]="student[field.name]" [required]="field.validators?.required"
+               [maxlength]="field.maxlength || null" ><br>
+      </ng-container>    
+    </div> -->
+      </div>
+      <!-- </div> -->
+
+      <div class="button-group">
+        <input type="submit" value="Add" class="btn btn-success btn-space ">
+        <button type="button" class="btn btn-danger btn-space" (click)="deleteStudent(registerForm)">Delete</button>
+        <!-- <button mat-raised-button color="btn-warning" (click)="deleteStudent(registerForm)">Delete</button> -->
+        <button type="button" class="btn btn-info btn-space" (click)="updateStudent(registerForm)">Update</button>
+        <button type="button" class="btn btn-warning btn-space" (click)="searchStudent(registerForm)">search</button>
+        <button type="button" class="btn btn-primary btn-space" (click)="resetForm(registerForm)">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>
+<pre>
+<input type="text" [(ngModel)]="searchtext" placeholder="Add Filter..." style= "margin: 5px;">
+</pre>
+<!-- <pre>{{studentDetails |json}}</pre> -->
+<!-- <div class="table-responsive mt-1 ">
+    <table class="table table-bordered table-striped">
+      <thead class="thead">
+        <tr>
+          <th>Id</th>
+          <th>name</th>
+          <th>fatherName</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Department</th>
+          <th>Mobile</th>
+          <th>Parent-Mobile</th>
+          <th>email</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr *ngFor="let student of this.studentDetails | filter: searchtext" (click)="selectStudent(student)">
+          <td>{{student.studentID}}</td>
+          <td>{{student.studentName}}</td>
+          <td>{{student.fatherName}}</td>
+          <td>{{student.studentDOB}}</td>
+          <td>{{student.studentGender}}</td>
+          <td>{{student.studentDepartment}}</td>
+          <td>{{student.studentMobileNumber}}</td>
+          <td>{{student.studentParentMobileNumber}}</td>
+          <td>{{student.studentEmail}}</td>
+          <td>{{student.studentAddress}}</td> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   -->
+
+<div class="mat-table">
+
+  <table mat-table [dataSource]="studentDetails | filter: searchtext" matTableFilter >
+    <ng-container matColumnDef="studentID" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header  > Id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentID}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentName">
+      <th mat-header-cell *matHeaderCellDef  > Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fatherName">
+      <th mat-header-cell *matHeaderCellDef  > fatherName</th>
+      <td mat-cell *matCellDef="let element"> {{element.fatherName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentDOB">
+      <th mat-header-cell *matHeaderCellDef > DOB </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentDOB}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentGender">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentGender}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentDepartment">
+      <th mat-header-cell *matHeaderCellDef > Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentDepartment}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentMobileNumber" >
+      <th mat-header-cell *matHeaderCellDef > Mobile </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentMobileNumber}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentParentMobileNumber">
+      <th mat-header-cell *matHeaderCellDef > Parent-Mobile </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentParentMobileNumber}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentEmail">
+      <th mat-header-cell *matHeaderCellDef> email </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentEmail}} </td>
+    </ng-container>
+    <ng-container matColumnDef="studentAddress">
+      <th mat-header-cell *matHeaderCellDef > Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.studentAddress}} </td>
+    </ng-container>
+
+    <tr mat-header-row  *matHeaderRowDef="displayedColumns" ></tr>
+    <tr mat-row  (click)="selectStudent(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- </mat-table> -->
+  </table>
+
+</div>

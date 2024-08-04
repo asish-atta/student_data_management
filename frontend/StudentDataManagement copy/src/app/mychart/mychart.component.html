@@ -1,0 +1,39 @@
+<div style="position: relative; width:40vw">
+    <!-- <div class="col"> -->
+    <h2> barchart</h2>
+        <canvas id="barchart"></canvas>
+<!-- </div> -->
+<!-- <div class="col">
+    <h2>pie chart</h2>
+        <canvas id="piechart"></canvas>
+</div>
+<div class="col">
+    <h2> Doughnut chart</h2>
+        <canvas id="doughnut"></canvas>
+</div> -->
+</div>
+
+<div>
+    <h2>Filtered Students</h2>
+    <table>
+      <thead>
+        <tr>
+            <th>ID</th>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Department</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of filteredStudents">
+          <td>{{ student.studentID }}</td>
+          <td>{{ student.studentName }}</td>
+          <td>{{ student.studentDOB }}</td>
+          <td>{{ student.studentDepartment }}</td>
+          <td>{{ student.studentDOB | age }}</td>
+          <!-- <td>{{ AgePipe.transform(student.studentDOB) }}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
